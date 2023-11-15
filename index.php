@@ -69,18 +69,18 @@
 
        $query = mysqli_query($koneksi, "SELECT * FROM data_barang");
 
-       $brand ='';
+       $brand = array();
        while ($data = mysqli_fetch_assoc($query)){
             ?>
         <table>
             <tr>
             <?php
-            if ($brand != $data['brand']) {
+            if (!in_array($data['brand'], $brand)) {
                 ?>
                 <td><input type="checkbox"></td>
                 <td><?php echo $data['brand'];?></td>
                 <?php
-                 $brand = $data['brand'];
+                 array_push($brand, $data['brand']);
                  ?>
                 <?php
             }else {
