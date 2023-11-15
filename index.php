@@ -14,13 +14,17 @@
     #carouselExampleDark {
         height: 450px;
         width: 1200px;
-        margin:auto;
-        border-radius:200px;
+        margin: auto;
+        border-radius: 200px;
     }
 
     .carousel-inner {
         height: 450px;
         width: 1200px;
+    }
+
+    .jarak-botton {
+        margin-top: -10px;
     }
     </style>
 </head>
@@ -30,7 +34,8 @@
     <!-- Navigation -->
 
     <div style="height: 25px; width: 100%; background-color: #4682A9;"></div>
-    <nav class="navbar navbar-expand-lg fixed-top " style="height: 75px ; background-color: #91C8E4; margin-bottom:200px;">
+    <nav class="navbar navbar-expand-lg fixed-top "
+        style="height: 75px ; background-color: #91C8E4; margin-bottom:200px;">
         <div class="container-fluid">
             <img src="logo/logo.png" style="height: 50px; width: 100px;">
             <span class="d-flex align-items-center ml-4">
@@ -62,20 +67,31 @@
         <?php
        include "koneksi.php";
 
-       $query = mysqli_query($koneksi, "SELECT * FROM brand");
+       $query = mysqli_query($koneksi, "SELECT * FROM data_barang");
 
+       $brand ='';
        while ($data = mysqli_fetch_assoc($query)){
             ?>
         <table>
             <tr>
+            <?php
+            if ($brand != $data['brand']) {
+                ?>
                 <td><input type="checkbox"></td>
-                <td><?php echo $data['nama_brand'];?></td>
+                <td><?php echo $data['brand'];?></td>
+                <?php
+                 $brand = $data['brand'];
+                 ?>
+                <?php
+            }else {
+            ?>  
+                <?php
+            }
+            ?>
             </tr>
-
         </table>
         <?php
-         }
-
+    }
         ?>
         <small style="color: #0E9BEB;">Lihat Semua</small>
     </div>
@@ -121,41 +137,44 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
-    </div>
-
-    <!-- list barang -->
-    <?php
-include "koneksi.php";
-
-$query = mysqli_query($koneksi, "SELECT * FROM data_barang");
-?>
-
-<div class="container text-center">
-    <div class="row">
+        
+        <!-- list barang -->
         <?php
-        while($data = mysqli_fetch_assoc($query)) {
+        include "koneksi.php";
+        
+        $query = mysqli_query($koneksi, "SELECT * FROM data_barang");
         ?>
-            <div class="col-md-3 ml-3">
-                <div class="card mb-1">
-                    <img src="../elektronik-barang/1.jpg" class="card-img-top" alt="...">
-                    <div class="card-body bg-light">
-                        <h5 class="card-title">Laptop</h5>
-                        <p class="card-text"><?php echo $data['nama_barang']; ?></p>
-                        <i class="fas fa-star text-success"></i>
-                        <i class="fas fa-star text-success"></i>
-                        <i class="fas fa-star text-success"></i>
-                        <i class="fas fa-star-half-alt text-success"></i>
-                        <i class="far fa-star text-success"></i><br>
-                        <a href="#" class="btn btn-primary" data-target="#produk1" data-toggle="modal">Detail</a>
-                        <a href="#" class="btn btn-danger">Harga</a>
+
+        <div class="container mt-4 ukuran-grid">
+            <div class="row">
+                <?php
+                while($data = mysqli_fetch_assoc($query)) {
+                ?>
+                <div class="countainer-fluid col-md-2 ml-3 ">
+                    <div class="card mb-1">
+                        <img src="logo/gambar-iklan/1.jpg" class="card-img-top" alt="...">
+                        <div class="card-body bg-light">
+                            <h5 class="card-title"><?php echo $data['brand'];?></h5>
+                            <p class="card-text jarak-botton"><a href="#"><?php echo $data['nama_barang'];?></a></p>
+                            <div class=" countainer m-0 p-0">
+                                <p class="card-text mt-0 jarak-botton"><?php echo $data['harga']; ?></p>
+                                <p class="card-text jarak-botton">Tersedia <?php echo $data['stok_barang']; ?></p>
+                                <i class="fas fa-star text-warning jarak-botton"></i>
+                                <i class="fas fa-star text-warning jarak-botton"></i>
+                                <i class="fas fa-star text-warning jarak-botton"></i>
+                                <i class="fas fa-star-half-alt text-warning jarak-botton"></i>
+                                <i class="far fa-star text-warning jarak-botton"></i><br>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <?php
+                }
+                ?>
             </div>
-        <?php
-        }
-        ?>
+        </div>
     </div>
-</div>
+
 
     <script src="js/bootstrap.min.js"></script>
 </body>
