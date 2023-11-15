@@ -32,7 +32,7 @@
     <div style="height: 25px; width: 100%; background-color: #4682A9;"></div>
     <nav class="navbar navbar-expand-lg fixed-top " style="height: 75px ; background-color: #91C8E4; margin-bottom:200px;">
         <div class="container-fluid">
-            <img src="gambar/logo.png" style="height: 50px; width: 100px;">
+            <img src="logo/logo.png" style="height: 50px; width: 100px;">
             <span class="d-flex align-items-center ml-4">
                 <i class="fa-solid fa-bars"></i>
                 <small style="margin-left: 10px;"><b>Kategori</b></small>
@@ -49,7 +49,7 @@
             <i class="fa-solid fa-envelope"></i>
             <span>
                 <i class="fa-solid fa-user"></i>
-                <small style="margin-left: 10px;"><b>Akun Saya</b< /small>
+                <small style="margin-left: 10px;"><b>Akun Saya</b</small>
             </span>
         </div>
         </div>
