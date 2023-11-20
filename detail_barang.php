@@ -143,7 +143,11 @@ $deskripsi_barang = $user_data['deskripsi_barang'];
                 <div class="countainer m-0 p-0">
                     <h6>Deskripsi Barang</h6>
                     <p class="card-text mt-0 jarak-botton"><?php echo nl2br($deskripsi_barang); ?></p>
-                </div>
+                </div><br>
+                <div class="circle-container">
+                <img src="logo/1.jpg" alt="Foto Profil" style="border-radius: 50%;" width="6%">
+                Batam Cell
+                </div><br>
             </div>
         </div>
 
