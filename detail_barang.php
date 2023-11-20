@@ -127,9 +127,18 @@ $deskripsi_barang = $user_data['deskripsi_barang'];
                         <i class="fas fa-star text-warning jarak-botton"></i>
                         <i class="fas fa-star text-warning jarak-botton"></i>
                         <i class="fas fa-star-half-alt text-warning jarak-botton"></i>
-                        <i class="far fa-star text-warning jarak-botton"></i><br>
+                        <i class="far fa-star text-warning jarak-botton"></i><br><br>
                         <p class="card-text jarak-botton">Tersedia <?php echo $stok_barang; ?></p>
-                    </div>
+                    </div><br>
+                    <div>
+                    <button type="button" class="btn btn-primary btn-lg">
+                        <span class="fa-solid fa-cart-shopping"></span>
+                        Masukkan Keranjang
+                    </button>
+                    <button type="button" class="btn btn-primary btn-lg">
+                        Beli Sekarang
+                    </button>
+                </div>
                 </div>
                 <div class="countainer m-0 p-0">
                     <h6>Deskripsi Barang</h6>
