@@ -120,15 +120,15 @@ $deskripsi_barang = $user_data['deskripsi_barang'];
         <div class="countainer-fluid col-md-8 ml-3 ">
             <div class="card mb-1">
                 <div class="card-body bg-light">
-                    <p class="card-text jarak-botton"><?php echo $nama_barang; ?></a></p>
+                    <p class="card-text jarak-botton" style="font-size: 30px;"><?php echo $nama_barang; ?></a></p>
                     <div class="countainer m-0 p-0">
-                        <p class="card-text mt-0 jarak-botton"><?php echo $harga; ?></p>
+                        <p class="card-text mt-0 jarak-botton" style="font-size: 20px;"><?php echo $harga; ?></p>
                         <i class="fas fa-star text-warning -botton"></i>
                         <i class="fas fa-star text-warning jarak-botton"></i>
                         <i class="fas fa-star text-warning jarak-botton"></i>
                         <i class="fas fa-star-half-alt text-warning jarak-botton"></i>
                         <i class="far fa-star text-warning jarak-botton"></i><br><br>
-                        <p class="card-text jarak-botton">Tersedia <?php echo $stok_barang; ?></p>
+                        <p class="card-text jarak-botton" style="font-size: 20px;">Tersedia <?php echo $stok_barang; ?></p>
                     </div><br>
                     <div>
                     <button type="button" class="btn btn-primary btn-lg">
