@@ -129,21 +129,21 @@ $deskripsi_barang = $user_data['deskripsi_barang'];
                         <i class="fas fa-star-half-alt text-warning jarak-botton"></i>
                         <i class="far fa-star text-warning jarak-botton"></i><br><br>
                         <p class="card-text jarak-botton" style="font-size: 20px;">Tersedia <?php echo $stok_barang; ?></p>
-                    </div><br>
+                    </div><br><br>
+                    <div class="circle-container" style="font-size: 20px;">
+                        <img src="logo/1.jpg" alt="Foto Profil" style="border-radius: 50%;" width="6%">
+                        Batam Cell
+                    </div><br><br>
                     <div>
-                    <button type="button" class="btn btn-primary btn-lg">
-                        <span class="fa-solid fa-cart-shopping"></span>
-                        Masukkan Keranjang
-                    </button>
-                    <button type="button" class="btn btn-primary btn-lg">
-                        Beli Sekarang
-                    </button>
+                        <button type="button" class="btn btn-primary btn-lg">
+                            <span class="fa-solid fa-cart-shopping"></span>
+                            Masukkan Keranjang
+                        </button>
+                        <button type="button" class="btn btn-primary btn-lg">
+                            Beli Sekarang
+                        </button>
+                    </div><br>
                 </div>
-                </div>
-                <div class="circle-container">
-                <img src="logo/1.jpg" alt="Foto Profil" style="border-radius: 50%;" width="6%">
-                Batam Cell
-                </div><br>
             </div>
         </div>
         <div class="countainer-fluid col-md-15 ml-3 mt-3">
