@@ -152,10 +152,10 @@
                 ?>
                 <div class="countainer-fluid col-md-2 ml-3 ">
                     <div class="card mb-1">
-                        <img src="logo/gambar-iklan/1.jpg" class="card-img-top" alt="...">
+                        <img src="file/<?php echo $data['foto_barang'] ?>" class="card-img-top" alt="...">
                         <div class="card-body bg-light">
                             <h5 class="card-title"><?php echo $data['brand'];?></h5>
-                            <p class="card-text jarak-botton"><a href="#"><?php echo $data['nama_barang'];?></a></p>
+                            <p class="card-text jarak-botton"><a href="detail_barang.php?id_barang=<?php echo $data['id_barang'];?>"><?php echo $data['nama_barang'];?></a></p>
                             <div class=" countainer m-0 p-0">
                                 <p class="card-text mt-0 jarak-botton"><?php echo $data['harga']; ?></p>
                                 <p class="card-text jarak-botton">Tersedia <?php echo $data['stok_barang']; ?></p>
@@ -174,6 +174,7 @@
             </div>
         </div>
     </div>
+    
 
 
     <script src="js/bootstrap.min.js"></script>
