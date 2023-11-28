@@ -26,9 +26,58 @@
         .jarak-botton {
             margin-top: -10px;
         }
+
         #customNumber {
-    width: 50px; /* Sesuaikan lebar sesuai kebutuhan Anda */
-}
+            width: 50px;
+            /* Sesuaikan lebar sesuai kebutuhan Anda */
+        }
+
+        html {
+            height: 100%;
+            width: 100%;
+        }
+
+        .countainer {
+            display: flex;
+            justify-content: center;
+
+        }
+
+        .botton {
+            width: 20px;
+            height: 20px;
+            background-color: #D9D9D9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin: 0 5px
+        }
+
+        #angka {
+            width: 20px;
+            height: 20px;
+            background-color: #D9D9D9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .angka {
+            width: 20px;
+            height: 20px;
+            background-color: #D9D9D9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 5px
+        }
+
+
+        .botton p {
+            text-align: center;
+            margin: 0;
+
+        }
     </style>
 </head>
 
@@ -52,15 +101,15 @@
                 <button style="position: absolute; margin-left: 500px;" class="btn ml-1" type="submit"><i
                         class="fas fa-search"></i></button>
             </form>
-            
-                <a href="keranjang.php">
+
+            <a href="keranjang.php">
                 <i class="fa-solid fa-cart-shopping"></a>
             </i>
             <i class="fa-solid fa-bell"></i>
             <i class="fa-solid fa-envelope"></i>
             <span>
                 <i class="fa-solid fa-user"></i>
-                <small style="margin-left: 10px;"><b>Akun Saya</b< /small>
+                <small style="margin-left: 10px;"><b>Akun Saya</b></small>
             </span>
         </div>
         </div>
@@ -68,7 +117,7 @@
     <div>
         <h4>KERANJANG</h4>
     </div>
-    <div class="container-fluid" style="border-bottom:1px solid black ;">
+    <div class="container-fluid mt-5" style="border-bottom:1px solid black ;">
         <div class="row">
             <div class="col-md-1">
                 <input type="checkbox" name="" id="">
@@ -87,40 +136,72 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-1">
-                
-            </div>
-            <div class="col-md-2 mb-1">
-                Acer Batam
+    
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-1 mt-1">
+
+                </div>
+                Dell Store
             </div>
 
         </div>
     </div>
-    <div class="container-fluid" style="border-bottom:1px solid black ;"    >
+    <div class="container-fluid" style="border-bottom:1px solid black ;">
         <div class="row">
-            <div class="col-md-1">
+            <div class="col-md-1 mt-1">
                 <input type="checkbox" name="" id="">
             </div>
-            <div class="col-md-1">
-                <img src="logo/acer.jpg" style="width:50px;" alt="">
+            <div class="col-md-5 mt-1">
+                <!-- <img src="logo/acer.png" style="width:50px;" alt=""> -->
+                <p>DELL Latitude 7480 Core i7 GEN6 RAM 8GB 256GB SSD</p>
             </div>
-            <div class="col-md-4">
-            Laptop Acer TravelMate P A4DBH Core I5/I7 Gen 
-            6 RAM 8GB SSD 256GB  Like baru  Mulus.......
-            </div>
-            <div class="col-md-2">
+            <div class="col-md-2 mt-2">
                 <p>Rp.5.165.000</p>
             </div>
-            <div class="col-md-2">
-            <input type="number" id="customNumber" name="customNumber" size="1">
+            <div class="row justify-content-left col-md-2 mt-1">
+                <div class="botton">
+                    <p class="kurang">-</p>
+                </div>
+                <div id="angka">
+                    <p class="angka">1</p>
+                </div>
+                <div class="botton">
+                    <p class="tambah">+</p>
+                </div>
             </div>
-            <div class="col-md-2 mb-4">
-            <p>Rp.5.165.000</p>
+            <div class="col-md-2 mt-">
+            <p>Rp.<span id="harga">5126000</span></p>
             </div>
         </div>
 
+
+
+        <script>
+            const tambah = document.querySelector(".tambah");
+            const kurang = document.querySelector(".kurang");
+            const angka = document.getElementById("angka");
+            const harga = document.getElementById("harga")
+
+            let i = 1;
+            let j = parseInt(harga.innerHTML);
+
+
+            tambah.addEventListener("click", function () {
+                i++;
+                angka.innerHTML = i;
+                harga.innerHTML = i * j;
+            });
+
+            kurang.addEventListener("click", function () {
+                if (i > 1) {
+                    i--;
+                    angka.innerHTML = i;
+                    harga.innerHTML = i * j;
+                }
+            });
+
+        </script>
 
         <script src="js/bootstrap.min.js"></script>
 </body>
