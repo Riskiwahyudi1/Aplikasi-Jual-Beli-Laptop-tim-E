@@ -1,234 +1,186 @@
 <?php
-session_start();
+    session_start();
 
-if (!isset($_SESSION["user"])) {
-    header("Location:login.php");
-    exit;
-}
-$user = $_SESSION['user'];
+    if (!isset($_SESSION["user"])){
+        header("Location:login.php");
+        exit;
+    }
+    $user = $_SESSION['user']; 
 
-if (isset($_GET['logout'])) {
+    if (isset($_GET['logout'])) {
 
     session_destroy();
 
-    header("Location:login.php");
+    header("Location:index.php");
     exit;
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lapstore</title>
+    <title>invoice</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="fontawesome/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-
-    <style>
-        #carouselExampleDark {
-            height: 450px;
-            width: 1200px;
-            margin: auto;
-            border-radius: 200px;
-        }
-
-        .carousel-inner {
-            height: 450px;
-            width: 1200px;
-        }
-
-        .jarak-botton {
-            margin-top: -10px;
-        }
-
-        #customNumber {
-            width: 50px;
-            /* Sesuaikan lebar sesuai kebutuhan Anda */
-        }
-
-        html {
-            height: 100%;
-            width: 100%;
-        }
-
-        .countainer {
-            display: flex;
-            justify-content: center;
-
-        }
-
-        .botton {
-            width: 20px;
-            height: 20px;
-            background-color: #D9D9D9;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            margin: 0 5px
-        }
-
-        #angka {
-            width: 20px;
-            height: 20px;
-            background-color: #D9D9D9;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .angka {
-            width: 20px;
-            height: 20px;
-            background-color: #D9D9D9;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 5px
-        }
-
-
-        .botton p {
-            text-align: center;
-            margin: 0;
-
-        }
-    </style>
 </head>
 
 <body>
-
-    <!-- Navigation -->
-
+    <!-- navbar -->
     <div style="height: 25px; width: 100%; background-color: #4682A9;"></div>
-    <nav class="navbar navbar-expand-lg fixed-top "
-        style="height: 75px ; background-color: #91C8E4; margin-bottom:200px;">
+    <nav class="navbar navbar-expand-lg fixed-top" style="height: 75px; background-color: #91C8E4; ;">
+        <a href="beranda.php">
+            <img src="logo/logo.png" style="height: 50px; width: 100px;" class="ms-3">
+        </a>
         <div class="container-fluid">
-            <img src="logo/logo.png" style="height: 50px; width: 100px;">
-            <span class="d-flex align-items-center ml-4">
-                <i class="fa-solid fa-bars"></i>
-                <small style="margin-left: 10px;"><b>Kategori</b></small>
-            </span>
 
-            <form class="d-flex " role="search">
-                <input style="width: 550px; height: 40px;" class="form-control me-1" placeholder="Cari Barang"
-                    aria-label="Search">
-                <button style="position: absolute; margin-left: 500px;" class="btn ml-1" type="submit"><i
-                        class="fas fa-search"></i></button>
-            </form>
+            <div class="col d-flex justify-content-end">
+                <form class="d-flex " role="search">
+                    <input style="width: 550px; height: 40px;" class="form-control me-1" placeholder="Cari Barang"
+                        aria-label="Search">
+                    <button style="position: absolute; margin-left: 500px;" class="btn ml-1" type="submit"><i
+                            class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <div class="col d-flex justify-content-end">
+                <a href="keranjang.php">
+                    <i class="fas fa-cart-plus me-5 text-dark"></i>
+                </a>
+                <a href="invoice.php">
+                    <i class="fas fa-bag-shopping me-5 text-dark"></i>
+                </a>
+                <a href="">
+                    <i class="fas fa-envelope me-5 text-dark"></i>
+                </a>
+                <a href="">
+                    <i class="fa-solid fa-user me-3 text-dark"></i>
+                </a>
+                <a href="" style="text-decoration: none;">
+                    <small class="me-5 mt text-dark"><b><?php echo $user;?></b></small>
+                </a>
+                <a href="?logout"><i class="fa-solid fa-sign-out-alt me-5 text-danger"></i></a>
+            </div>
 
-            <a href="keranjang.php"><i class="fa-solid fa-cart-shopping"></i></a>
-
-            <i class="fa-solid fa-bell"></i>
-            <i class="fa-solid fa-envelope"></i>
-            <span>
-                <i class="fa-solid fa-user"></i>
-                <small style="margin-left: 10px;"><b>
-                        <?php echo $user; ?>
-                    </b></small>
-            </span>
-        </div>
         </div>
     </nav>
-    <div class="container-fluid col-md-11" style="margin-top:80px">
-    <table class="row">
-        <th>
-        <b>No. Barang</b>
-        <td>:</td>
-        <td>123456</td>
-        </th><br>
-        <th>
-        <b>Tanggal</b>
-        <td>:</td>
-        <td>1 januari 2023</td>
-        </th><br>
-        <th>
-        <b>Pembayaran</b>
-        <td>:</td>
-        <td>Bank BCA</td>
-        </th><br>
-    </table>
-        <div class="row mt-3" style="border-top: solid 1px black;">
-            <div class="col-md-4 me-5 mt-1 mb-2" style="margin-left:50px;"">
-          <small><b> Nama Produk</b></small>
-        </div>
-        <div class=" col-md-2 ">
-          <small><b> jumlah Produk</b></small>
-        </div>
-        <div class=" col-md-3 " style="">
-          <small><b> Harga Produk</b></small>
-        </div>
-        <div class=" col-md-2 " style="">
-          <small><b> Subtotal</b></small>
-        </div>
-</div>
-        <div class=" row mt-3">
-                <div class="col-md-1 " style="margin-left:50px;">
-                    <img src="laptop1.jpg" alt="" class="w-75 h-75 me-2">
-                </div>
-                <div class="col-md-3 me-5">
-                    <p>Laptop Acer TravelMate P A4DBH Core I5/I7 Gen 6 RAM 8GB SSD 256GB Like baru Mulus.......</p>
-                </div>
-                <div class="col-md-2 ">
-                    <p>1 Pcs</p>
-                </div>
-                <div class="col-md-3 " style="color:#FF7F09">
-                    <p>Rp5.165.000</p>
-                </div>
-                <div class="col-md-2 " style="color:#FF7F09">
-                    <p>Rp5.165.000</p>
-                </div>
+    <?php
+        include "koneksi.php";
 
+        $id_transaksi = $_GET['id_transaksi'];
+        $query = mysqli_query($koneksi, "SELECT * FROM data_transaksi WHERE id_transaksi='$id_transaksi'");
+        $data = mysqli_fetch_assoc($query);
+        if ($query) {
+           
+        } else {
+            die(mysqli_error($koneksi));
+        }
+    ?>
+
+    <div class="container-fluid col-md-9"
+        style="margin-top:60px ;box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);background-color:#faf6f6; padding: 20px;">
+        <center>
+            <h5 class="text-primary">Invoice</h5>
+        </center>
+        <table>
+            <tr>
+                <td><b>Status Transaksi</b> </td>
+                <td>:</td>
+                <td><i><?php echo $data['status_transaksi'];?></i> </td>
+            </tr>
+            <tr>
+                <td><b>Id Transaksi</b> </td>
+                <td>:</td>
+                <td><i><?php echo $data['id_transaksi'];?></i> </td>
+            </tr>
+            <tr>
+                <td><b>Penjual</b></td>
+                <td>:</td>
+                <td><i><?php echo $data['nama_penjual'];?></i></td>
+            </tr>
+            <tr>
+                <td><b>Tanggal</b></td>
+                <td>:</td>
+                <td><i><?php echo $data['tanggal_transaksi']; ?></i></td>
+            </tr>
+            <tr>
+                <td><b>Pembayaran</b></td>
+                <td>:</td>
+                <td><i><?php echo $data['bank']; ?></i></td>
+            </tr>
+        </table>
+
+        <div class="row mt-4" style="border-top: solid 1px black;">
+            <div class="col-md-8  mt-1 mb-2">
+                <small><b style="margin-left:50px;"> Nama Produk</b></small>
             </div>
-            <div class="row mt-3" style="background-color:#C2C0C0;">
-                <div class="col-md-4 me-5 mt-1 mb-2" style="margin-left:50px;"">
-          <b> Subtotal</b>
-        </div>
-        <div class=" col-md-2 ">
-          <small><b></b></small>
-        </div>
-        <div class=" col-md-3 " style="">
-          <small><b></b></small>
-        </div>
-        <div class=" col-md-2 " style=" color:#FF7F09">
-                    <b> Rp.5.165.000</b>
-                </div>
+            <div class=" col-md-1 ">
+                <small><b> jumlah </b></small>
             </div>
-            <div class="row mt-5">
-                <div class="col-md-4 me-5 mt-1 mb-2" style="margin-left:50px;"">
-          <b> JNT EXPRESS</b>
-        </div>
-        <div class=" col-md-2 ">
-          <small><b></b></small>
-        </div>
-        <div class=" col-md-3 " style="">
-          <small><b></b></small>
-        </div>
-        <div class=" col-md-2 " style=" color:#FF7F09">
-                    <b> Rp.35.000</b>
-                </div>
+            <div class=" col-md-2" style="">
+                <small><b> Harga </b></small>
             </div>
-            <div class="row mt-3" style="background-color:#C2C0C0;">
-                <div class="col-md-4 me-5 mt-1 mb-2" style="margin-left:50px;">
-                    <b> Total</b>
-                </div>
-                <div class=" col-md-2 ">
-                    <small><b></b></small>
-                </div>
-                <div class=" col-md-3 " style="">
-                    <small><b></b></small>
-                </div>
-                <div class=" col-md-2 " style="color:#FF7F09">
-                    <b> Rp.5.200.000</b>
-                </div>
+        </div>
+        <div class=" row mt-3" >
+            <div class="col-md-1 ">
+                <img src="file/<?php echo $data['foto_barang']; ?>" alt="" class="w-100 h-100 me-2"
+                    style="margin-left:50px;">
             </div>
-            <div  class="row mt-5" style="border-top: solid 1px black;">
-                <b>Tujuan Pengiriman</b>
-                <b>Riski Wahyudi</b>
-                <p>perumahan xxxx block x no 99 kecamatan mangsang</p>
-                <p>SEI SUNGAI BEDUK, KOTA BATAM, KEPULAUAN RIAU, ID 1234</p>
-                <P>0869696969</P>
+            <div class="col-md-7 crop-line">
+                <p style="margin-left:40px;"><?php echo $data['nama_barang']; ?></p>
+            </div>
+            <div class="col-md-1 ">
+                <p><?php echo $data['jumlah']; ?> Pcs</p>
+            </div>
+            <div class="col-md-2 " style="color:#FF7F09">
+                <p>Rp.<?php echo $data['total_harga']; ?></p>
+            </div>
+
+        </div>
+
+        <div class="row mt-3" style="border-top: solid 1px black;">
+            <div class="col-md-9">
+                <small><b style="margin-left:50px;">Jenis Kurir</b></small>
+            </div>
+            <div class=" col-md-2 ">
+                <small><b></b></small>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-9">
+                <p style="margin-left:50px;"><?php echo $data['kurir']; ?></p>
+            </div>
+
+            <div class=" col-md-2 " style=" color:#FF7F09">
+                <p> Rp.35.000</p>
+            </div>
+        </div>
+        <div class="row mt-1" style="background-color:#C2C0C0;">
+            <div class="col-md-9">
+                <b class="">Total Transaksi</b>
+            </div>
+            <div class="col-md-3" style="color:#FF7F09">
+                <b class=""><?php echo $data['total_transaksi']; ?></b>
+            </div>
+        </div>
+        <div class="col-md-4 mt-4" style="border-top: solid 1px black;">
+            <b>Tujuan Pengiriman</b>
+            <p><?php echo $data['alamat'];?> </P>
+        </div>
+
+
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+        </script>
+        <script src="js/bootstrap.min.js"></script>
+</body>
+
+</html>
