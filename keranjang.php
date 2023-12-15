@@ -1,3 +1,21 @@
+<?php
+    session_start();
+
+    if (!isset($_SESSION["user"])){
+        header("Location:login.php");
+        exit;
+    }
+    $user = $_SESSION['user']; 
+
+    if (isset($_GET['logout'])) {
+
+    session_destroy();
+
+    header("Location:login.php");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,73 +29,74 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-        #carouselExampleDark {
-            height: 450px;
-            width: 1200px;
-            margin: auto;
-            border-radius: 200px;
-        }
+    #carouselExampleDark {
+        height: 450px;
+        width: 1200px;
+        margin: auto;
+        border-radius: 200px;
+    }
 
-        .carousel-inner {
-            height: 450px;
-            width: 1200px;
-        }
+    .carousel-inner {
+        height: 450px;
+        width: 1200px;
+    }
 
-        .jarak-botton {
-            margin-top: -10px;
-        }
+    .jarak-botton {
+        margin-top: -10px;
+    }
 
-        #customNumber {
-            width: 50px;
-            /* Sesuaikan lebar sesuai kebutuhan Anda */
-        }
+    #customNumber {
+        width: 50px;
+        /* Sesuaikan lebar sesuai kebutuhan Anda */
+    }
 
-        html {
-            height: 100%;
-            width: 100%;
-        }
+    html {
+        height: 100%;
+        width: 100%;
+    }
 
-        .countainer {
-            display: flex;
-            justify-content: center;
+    .countainer {
+        display: flex;
+        justify-content: center;
 
-        }
+    }
 
-        .botton {
-            width: 20px;
-            height: 20px;
-            background-color: #D9D9D9;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            margin: 0 5px
-        }
+    .botton {
+        width: 20px;
+        height: 20px;
+        background-color: #D9D9D9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        margin: 0 px
+    }
 
-        #angka {
-            width: 20px;
-            height: 20px;
-            background-color: #D9D9D9;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .angka {
-            width: 20px;
-            height: 20px;
-            background-color: #D9D9D9;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 5px
-        }
+    #angka {
+        width: 20px;
+        height: 20px;
+        background-color: #D9D9D9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .angka {
+        width: 20px;
+        height: 20px;
+        background-color: #D9D9D9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 5px
+    }
 
 
-        .botton p {
-            text-align: center;
-            margin: 0;
+    .botton p {
+        text-align: center;
+        margin: 0;
 
-        }
+    }
     </style>
 </head>
 
@@ -85,125 +104,182 @@
 
     <!-- Navigation -->
 
-    <div style="height: 25px; width: 100%; background-color: #4682A9;"></div>
-    <nav class="navbar navbar-expand-lg fixed-top "
-        style="height: 75px ; background-color: #91C8E4; margin-bottom:200px;">
+    <div style="height: 25px; width: 100%; background-color: #4682A9; margin-bottom: 60px;"></div>
+    <nav class="navbar navbar-expand-lg fixed-top" style="height: 75px; background-color: #91C8E4; ;">
+        <a href="beranda.php">
+            <img src="logo/logo.png" style="height: 50px; width: 100px;" class="ms-3">
+        </a>
         <div class="container-fluid">
-            <img src="logo/logo.png" style="height: 50px; width: 100px;">
-            <span class="d-flex align-items-center ml-4">
-                <i class="fa-solid fa-bars"></i>
-                <small style="margin-left: 10px;"><b>Kategori</b></small>
-            </span>
 
-            <form class="d-flex " role="search">
-                <input style="width: 550px; height: 40px;" class="form-control me-1" placeholder="Cari Barang"
-                    aria-label="Search">
-                <button style="position: absolute; margin-left: 500px;" class="btn ml-1" type="submit"><i
-                        class="fas fa-search"></i></button>
-            </form>
+            <div class="col d-flex justify-content-end">
+                <form class="d-flex " role="search">
+                    <input style="width: 550px; height: 40px;" class="form-control me-1" placeholder="Cari Barang"
+                        aria-label="Search">
+                    <button style="position: absolute; margin-left: 500px;" class="btn ml-1" type="submit"><i
+                            class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <div class="col d-flex justify-content-end">
+                <a href="keranjang.php">
+                    <i class="fas fa-cart-plus me-5 text-dark"></i>
+                </a>
+                <a href="invoice.php">
+                    <i class="fas fa-bag-shopping me-5 text-dark"></i>
+                </a>
+                <a href="">
+                    <i class="fas fa-envelope me-5 text-dark"></i>
+                </a>
+                <a href="">
+                    <i class="fa-solid fa-user me-3 text-dark"></i>
+                </a>
+                <a href="" style="text-decoration: none;">
+                    <small class="me-5 mt text-dark"><b><?php echo $user;?></b></small>
+                </a>
+                <a href="?logout"><i class="fa-solid fa-sign-out-alt me-5 text-danger"></i></a>
+            </div>
 
-            <a href="keranjang.php">
-                <i class="fa-solid fa-cart-shopping"></a>
-            </i>
-            <i class="fa-solid fa-bell"></i>
-            <i class="fa-solid fa-envelope"></i>
-            <span>
-                <i class="fa-solid fa-user"></i>
-                <small style="margin-left: 10px;"><b>Akun Saya</b></small>
-            </span>
-        </div>
         </div>
     </nav>
-    <div>
-        <h4>KERANJANG</h4>
-    </div>
-    <div class="container-fluid mt-5" style="border-bottom:1px solid black ;">
-        <div class="row">
-            <div class="col-md-1">
-                <input type="checkbox" name="" id="">
-            </div>
-            <div class="col-md-5">
-                <p>Produk</p>
-            </div>
-            <div class="col-md-2">
-                <p>Harga Satuan</p>
-            </div>
-            <div class="col-md-2">
-                <p>Kuantitas</p>
-            </div>
-            <div class="col-md-2">
-                <p>Total Harga</p>
-            </div>
+    <div class="container-fluid col-md-9 " style="background-color: #FAF6F6; padding:0 20px 20px 20px;box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); margin-top : 70px;">
+        <div>
+            <center>
+                <h5 class="mb-3 text-primary mt-5" style="padding-top :20px;">Daftar Keranjang</h5>
+            </center>
         </div>
-    </div>
-    
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-1 mt-1">
-
-                </div>
-                Dell Store
-            </div>
-
-        </div>
-    </div>
-    <div class="container-fluid" style="border-bottom:1px solid black ;">
-        <div class="row">
-            <div class="col-md-1 mt-1">
-                <input type="checkbox" name="" id="">
-            </div>
-            <div class="col-md-5 mt-1">
-                <!-- <img src="logo/acer.png" style="width:50px;" alt=""> -->
-                <p>DELL Latitude 7480 Core i7 GEN6 RAM 8GB 256GB SSD</p>
-            </div>
-            <div class="col-md-2 mt-2">
-                <p>Rp.5.165.000</p>
-            </div>
-            <div class="row justify-content-left col-md-2 mt-1">
-                <div class="botton">
-                    <p class="kurang">-</p>
-                </div>
-                <div id="angka">
-                    <p class="angka">1</p>
-                </div>
-                <div class="botton">
-                    <p class="tambah">+</p>
+            <div class="container-fluid" style="border-bottom:1px solid black ;">
+                <div class="row">
+                    <div class="col-md-7 d-flex align-items-center">
+                        <input type="checkbox" name="" id="" class="me-2 mb-3">
+                        <p>Produk</p>
+                    </div>
+                    
+                    <div class="col-md-2">
+                        <p>Harga barang</p>
+                    </div>
+                    <div class="col-md-1">
+                        <p></p>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-2 mt-">
-            <p>Rp.<span id="harga">5126000</span></p>
+            <?php
+                include "koneksi.php";
+                
+                $query = mysqli_query($koneksi, "SELECT * FROM data_barang WHERE id_barang");
+                $data1 = mysqli_fetch_assoc($query)
+                ?>
+            <?php
+
+                include "koneksi.php";
+                $keranjang_user =  $_SESSION['user']; 
+                $query = mysqli_query($koneksi, "SELECT * FROM keranjang WHERE username_pembeli = '$keranjang_user'");
+            ?>
+            <?php while($data = mysqli_fetch_assoc($query)) { ?>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-7 d-flex align-items-center ms-3">
+                        <p><b>Penjual:</b> <?php echo $data['username_penjual'] ?></p>
+                    </div>
+
+                </div>
             </div>
-        </div>
+            <form action="" method="post">
+                <div class="container-fluid" style="border-bottom: 1px solid black;">
+                    <div class="row align-items-center">
+                        <div class="col-md-7 d-flex align-items-center">
+                            <input type="checkbox" name="" id="" class="me-3 mb-2 checkbox-keranjang"
+                                value="<?php echo $data['id_barang']; ?>">
+                            <input type="hidden" class="takeId" value="<?php echo $data['id_barang']; ?>">
+                            <img src="file/<?php echo $data['foto_barang'] ?>" style="width: 50px; height: 50px;" alt=""
+                                class="mb-2 me-3">
+                            <p class="nama_barang"><?php echo $data['nama_barang']; ?></p>
+                        </div>
+                        <div class="col-md-1 mt-2">
+                            <p style="color: #FF7F09;">Rp.<span class="harga"><?php echo $data['harga_barang'];?></span></p>
+                        </div>
+                        <div class="col-md-1 mt-1 ms-5">
+                            <a href="#" class="" data-toggle="modal"
+                                data-target="#deleteproduk<?php echo $data['id_barang'];?>"
+                                style="color:red; text-decoration:none;"><i
+                                    class="fa-solid fa-trash mb-3 me-2"></i>Hapus</a>
+                        </div>
+                    </div>
+                    <!-- modal delete -->
+                    <div class="example-modal">
+                        <div id="deleteproduk<?php echo $data['id_barang']; ?>" class="modal fade" role="dialog"
+                            style="display:none;">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <center>
+                                            <h5 class="modal-title">Konfirmasi Hapus Data</h5>
+                                        </center>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h6 style="color :red;" align="center">Apakah anda yakin ingin menghapus
+                                            <?php echo $data['nama_barang'];?>?</h6>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button id="nodelete" type="button" class="btn btn-danger pull-left"
+                                            data-dismiss="modal">Cancle</button>
+                                        <a href="delete.php?id_barang=<?php echo $data['id_barang']; ?>"
+                                            class="btn btn-primary">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-
-
-        <script>
-            const tambah = document.querySelector(".tambah");
-            const kurang = document.querySelector(".kurang");
-            const angka = document.getElementById("angka");
-            const harga = document.getElementById("harga")
-
-            let i = 1;
-            let j = parseInt(harga.innerHTML);
-
-
-            tambah.addEventListener("click", function () {
-                i++;
-                angka.innerHTML = i;
-                harga.innerHTML = i * j;
-            });
-
-            kurang.addEventListener("click", function () {
-                if (i > 1) {
-                    i--;
-                    angka.innerHTML = i;
-                    harga.innerHTML = i * j;
+                <?php
                 }
-            });
+                ?>
 
-        </script>
 
-        <script src="js/bootstrap.min.js"></script>
+                <div class="container d-flex justify-content-end me-5 mb-5 fixed-bottom">
+
+                    <button type="button" name="checkout" class="btn btn-primary mr-5">
+                        <a id="linkId" href="checkout.php?id_barang=<?php echo $data['id_barang'] ?>"
+                            class="text-white text-decoration-none">checkout</a>
+                    </button>
+
+
+                </div>
+
+
+        </form>
+    </div>
+    <script>
+    // script checkout
+
+    const checkbox = document.querySelectorAll('.checkbox-keranjang');
+    const link = document.querySelector('#linkId');
+    for (let i = 0; i < checkbox.length; i++) {
+        checkbox[i].addEventListener('change', function() {
+            const isChecked = this.checked;
+
+            if (isChecked) {
+                const takeId = document.querySelectorAll(`.takeId`);
+                checkbox.value = takeId[i].value;
+                console.log(checkbox.value)
+                link.href = "checkout.php?id_barang=" + checkbox.value;
+                link.style.display = "inline";
+            } else {
+                link.style.display = "none";
+            }
+        });
+    }
+    </script>
+
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>
