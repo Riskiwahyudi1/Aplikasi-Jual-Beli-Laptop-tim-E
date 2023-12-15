@@ -27,60 +27,70 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="admin.css">
     <link rel="stylesheet" type="text/css" href="fontawesome/css/all.min.css">
-    <title>ADMINISTRATOR</title>
+    <title>LapStore</title>
     <style>
-    .ukuran_barang {
+    .crop-line {
         display: -webkit-box;
         -webkit-box-orient: vertical;
         overflow: hidden;
+        -webkit-line-clamp: 2;
         text-overflow: ellipsis;
-        -webkit-line-clamp: 1;
     }
     </style>
 </head>
 
-<body style="background-color:gray;">
+<body>
 
-    <div class="row no-gutters mt-0">
-        <div class="col-md-2 mt-2 pr-3 pt-4" style="background-color:#749BC2;">
-            <ul class="nav flex-column ml-3 mb-5">
-                <li class="nav-item">
-                    <img src="logo.png" width="180" alt="">
+    <div class="row no-gutters mt-0 h-100">
+        <div class="col-md-2 mt-2 pr-3 pt-4 " style="background-color:#749BC2;">
+            <ul class="nav flex-column ml-3 mb-5 ">
+                <li class="nav-item ">
+                    <img src="logo.jhpg" width="100" alt="">
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active text-white" href="dashboard_admin.php"><i
-                            class="fas fa-tachometer-alt mr-2"></i>Dashboard</a>
+                            class="fas fa-user me-2"></i><b><?php echo $user; ?></b></a>
+                    <hr class="bg-secondary">
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active text-white" href="dashboard_admin.php"><i
+                            class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
                     <hr class="bg-secondary">
                 </li>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="data_produk.php"><i class="fas fa-box-open mr-2"></i>Data
-                        Produk</a>
+                    <a class="nav-link text-white" href="data_produk.php"><i class="fas fa-box me-2"></i>Data Produk</a>
                     <hr class="bg-secondary">
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="data_transaksi.php"><i class="fas fa-dollar-sign mr-2"></i>Data
+                <li class="nav-item ">
+                    <a class="nav-link text-white" href="data_transaksi.php"><i class="fas fa-dollar me-2"></i>Data
                         Transaksi</a>
-                    <hr class="bg-secondary">
+                    <hr class="bg-secondary ">
+                </li>
+                <li class="nav-item pb-5">
+                    <a class="nav-link text-white" href="?logout"><i
+                            class="fas fa-right-from-bracket me-2"></i>Logout</a>
+                    <hr class="bg-secondary ">
                 </li>
             </ul>
         </div>
 
-
         <div class="col-md-10 p-5 pt-2">
-            <h3><i class="fas mr-2"></i> Data Produk</h3>
-            <hr>
+            <center>
+                <h4><i class="fas mt-5"></i> Data Transaksi Pejualan Barang</h4>
 
+            </center>
+            <hr>
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
                         <th scope="col">NO</th>
                         <th scope="col">Id Transaksi</th>
                         <th scope="col">Nama barang</th>
-                        <th scope="col">Harga transaksi</th>
+                        <th scope="col">Harga </th>
                         <th scope="col">Jumlah</th>
-                        <th scope="col">Tanggal Transaksi</th>
-                        <th scope="col">Nama Pembeli</th>
+                        <th scope="col">Tanggal </th>
+                        <th scope="col">Pembeli</th>
                         <th scope="col">Status</th>
                         <th scope="col">Aksi</th>
 
@@ -96,10 +106,12 @@
                 <tr>
                     <td><?php echo $no++;?></td>
                     <td><?php echo $data['id_transaksi'];?></td>
-                    <td><?php echo $data['nama_barang'];?></td>
+                    <td class="col-md-2">
+                        <p class="crop-line"><?php echo $data['nama_barang'];?></p>
+                    </td>
                     <td>Rp.<?php echo $data['total_harga'];?></td>
                     <td><?php echo $data['jumlah'];?></td>
-                    <td><?php echo $data['tanggal_transaksi'];?></td>
+                    <td class="col-md-1"><?php echo $data['tanggal_transaksi'];?></td>
                     <td><?php echo $data['username_pembeli'];?></td>
                     <td>
                         <a href="#" class="btn btn-primary mb-3 mx-auto konfirmasi" data-toggle="modal"
@@ -107,15 +119,13 @@
                                 Pemesanan</i></a>
                     </td>
                     <td>
-                        <a href="#" class="btn btn-success mb-3 mx-auto" data-toggle="modal"
+                        <a href="#" class="btn btn-secondary mb-3 mx-auto" data-toggle="modal"
                             data-target="#edittransaksi<?php echo $data['id_transaksi'];?>"><i class="">Detail
                                 Transaksi</i></a>
                         <a href="#" class="btn btn-danger mb-3 mx-auto" data-toggle="modal"
                             data-target="#deleteproduk<?php echo $data['id_transaksi'];?>"><i class="">Hapus</i></a>
                     </td>
                 </tr>
-
-                <!-- Modal detail -->
 
                 <div class="example-modal">
                     <div class="modal fade" id="edittransaksi<?php echo $data['id_transaksi'];?>" role="dialog">
@@ -175,6 +185,7 @@
                         </div>
                     </div>
                 </div>
+                
 
                 <!-- modal delete -->
 
@@ -189,7 +200,8 @@
                                     </center>
                                 </div>
                                 <div class="modal-body">
-                                    <h6 style="color :red;" align="center">Apakah anda yakin ingin menghapus <?php echo $data['nama_barang'];?>?</h6>
+                                    <h6 style="color :red;" align="center">Apakah anda yakin ingin menghapus
+                                        <?php echo $data['nama_barang'];?>?</h6>
                                 </div>
                                 <div class="modal-footer">
                                     <button id="nodelete" type="button" class="btn btn-danger pull-left"
@@ -209,40 +221,67 @@
                                     <div class="modal-header">
                                     </div>
                                     <div class="modal-body">
-                                        <form action="simpan_produk.php" method="post" enctype="multipart/form-data">
-                                            <h6 style="color :red;" align="center">konfirmasi Pesanan Untuk <?php echo $data['nama_barang'];?>?</h6>
+                                        <form action="" method="post" enctype="multipart/form-data">
+                                            <h6 style="color :red;" align="center">konfirmasi Pesanan Untuk
+                                                <?php echo $data['nama_barang'];?>?</h6>
                                             <input type="hidden" name="konfirmasi" value="Dalam Pengiriman">
-                                            <input type="hidden" class="status" value="<?php echo $data['status_transaksi'];?>">
-                                            <input type="hidden" name="id_transaksi" value="<?php echo $data['id_transaksi']; ?>">
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button id="nodelete" type="button" class="btn btn-danger pull-left"
+                                            <input type="hidden" class="status"
+                                                value="<?php echo $data['status_transaksi'];?>">
+                                            <input type="hidden" name="transaksi"
+                                                value="<?php echo $data['id_transaksi']; ?>">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button id="nodelete" type="button" class="btn btn-danger pull-left"
                                             data-dismiss="modal">Batal</button>
-                                            <input type="submit" class="btn btn-primary" value="konfirmasi">
+                                        <input type="submit" class="btn btn-primary" value="konfirmasi">
                                         </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <?php
+
+                        <?php
               }
-              ?>
+              ?>                                      
+                        <script>
+                        const status = document.querySelectorAll('.status');
+                        const konfirmasi = document.querySelectorAll('.konfirmasi');
+                        for (let i = 0; i < status.length; i++) {
+                            if (status[i].value == 'Dalam Pengiriman') {
+                                konfirmasi[i].innerHTML = 'Dikirim';
+                                konfirmasi[i].style = 'color:white;';
+                                konfirmasi[i].classList.remove('btn-primary');
+                                konfirmasi[i].classList.add('btn-warning');
+                                konfirmasi[i].setAttribute("data-target", "");
+                            } else if (status[i].value == 'Selesai') {
+                                konfirmasi[i].innerHTML = 'Selesai';
+                                konfirmasi[i].style = 'color:white;';
+                                konfirmasi[i].classList.remove('btn-warning');
+                                konfirmasi[i].classList.add('btn-success');
+                                konfirmasi[i].setAttribute("data-target", "");
+                            }
+                        };
+                        </script>
 
+            <?php
+            include "koneksi.php";
 
-              <script>
-                const status = document.querySelectorAll('.status');
-                const konfirmasi = document.querySelectorAll('.konfirmasi');
-                for(let i = 0 ; i < status.length; i++){
-                    if(status[i].value == 'Dalam Pengiriman'){
-                        konfirmasi[i].innerHTML = 'Dikirim';
-                        konfirmasi[i].style = 'color:white;';
-                        konfirmasi[i].classList.remove('btn-primary');
-                        konfirmasi[i].classList.add('btn-warning');
-                        konfirmasi[i].setAttribute("data-target", "");
-                    };
-                };
-              </script>
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                // Validasi dan bersihkan data input
+                $id_transaksi = mysqli_real_escape_string($koneksi, $_POST["transaksi"]);
+                $konfirmasi_pesanan = mysqli_real_escape_string($koneksi, $_POST["konfirmasi"]);
+
+                // Perbarui status transaksi
+                $result = mysqli_query($koneksi, "UPDATE data_transaksi SET status_transaksi='$konfirmasi_pesanan' WHERE id_transaksi='$id_transaksi'");
+
+                if ($result) {
+                    echo "Status transaksi berhasil diperbarui.";
+                } else {
+                    echo "Gagal memperbarui status transaksi: " . mysqli_error($koneksi);
+                }
+            }
+            ?>
+
 
                     <!-- Optional JavaScript -->
                     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
