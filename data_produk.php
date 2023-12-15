@@ -1,3 +1,20 @@
+<?php
+    session_start();
+
+    if (!isset($_SESSION["user"])){
+        header("Location:login.php");
+        exit;
+    }
+    $user = $_SESSION['user']; 
+
+    if (isset($_GET['logout'])) {
+
+    session_destroy();
+
+    header("Location:index.php");
+    exit;
+}
+?>
 <!doctype html>
 <html lang="en">
 
@@ -11,6 +28,15 @@
     <link rel="stylesheet" type="text/css" href="admin.css">
     <link rel="stylesheet" type="text/css" href="fontawesome/css/all.min.css">
     <title>ADMINISTRATOR</title>
+    <style>
+        .ukuran_barang{
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 1;
+        }
+    </style>
 </head>
 
 <body>
@@ -22,17 +48,17 @@
                     <img src="logo.png" width="180" alt="">
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active text-white" href="dashboard.php"><i
-                            class="fas fa-tachometer-alt mr-2"></i>Dashboard</a>
+                    <a class="nav-link active text-white" href="dashboard_admin.php"><i
+                            class="fas fa-tachometer-alt mr-2"></i>Dashboard <?php echo $user; ?></a>
                     <hr class="bg-secondary">
                 </li>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href=""><i class="fas fa-chalkboard-teacher mr-2"></i>Data Produk</a>
+                    <a class="nav-link text-white" href=""><i class="fas fa-box-open mr-2"></i>Data Produk</a>
                     <hr class="bg-secondary">
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="transaksi.php"><i class="fas fa-users mr-2"></i>Data
+                    <a class="nav-link text-white" href="data_transaksi.php"><i class="fas fa-dollar-sign mr-2"></i>Data
                         Transaksi</a>
                     <hr class="bg-secondary">
                 </li>
@@ -51,17 +77,17 @@
                             <th scope="col">Id barang</th>
                             <th scope="col">Nama barang</th>
                             <th scope="col">Brand</th>
-                            <th scope="col">Deskripsi barang</th>
-                            <th scope="col">Harga barang</th>
-                            <th scope="col">Stok barang</th>
+                            <th scope="col-md-5">Deskripsi barang</th>
+                            <th scope="col">Harga</th>
+                            <th scope="col">Stok</th>
                             <th scope="col">Aksi</th>
 
                         </tr>
                     </thead>
                 <?php
               include 'koneksi.php';
-
-              $query = mysqli_query($koneksi, "SELECT * FROM data_barang");
+              $penjual = $_SESSION['user'];
+              $query = mysqli_query($koneksi, "SELECT * FROM data_barang WHERE nama_penjual='$penjual'");
               $no = 1;
               while ($data = mysqli_fetch_assoc($query)){
               ?>
@@ -70,19 +96,83 @@
                         <td><?php echo $data['id_barang'];?></td>
                         <td><?php echo $data['nama_barang'];?></td>
                         <td><?php echo $data['brand'];?></td>
-                        <td><?php echo $data['deskripsi_barang'];?></td>
+                        <td class="col-md-5"><?php echo $data['deskripsi_barang'];?></td>
                         <td><?php echo $data['harga'];?></td>
                         <td><?php echo $data['stok_barang'];?></td>
-                        <td>
-                            <i class="fas fs-edit bg-success p-2 text-white rounded"></i>
-                            <a href="#" data-toggle="modal"
-                                data-target="#editproduk<?php echo $data['id_barang'];?>">Edit</a>
-                            <i class="fas fa-trash-alt bg-danger p-2 text-white rounded"></i>
-                            <a href="#" data-toggle="modal"
-                                data-target="#deleteproduk<?php echo $data['id_barang'];?>">Delete</a>
+                        <td class="col-md-2">
+                            <a href="#" class="btn btn-primary mb-3 mx-auto" data-toggle="modal" data-target="#editproduk<?php echo $data['id_barang'];?>"><i class="">Edit</i></a>
+                            <a href="#" class="btn btn-danger mb-3 mx-auto" data-toggle="modal" data-target="#deleteproduk<?php echo $data['id_barang'];?>"><i class="">Hapus</i></a>
                         </td>
                     </tr>
-                   
+
+                     <!-- Update Modal -->
+                <div class="example-modal">
+                    <div class="modal fade" id="editproduk<?php echo $data['id_barang'];?>" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title">Edit Data Barang</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="simpan_produk.php" method="post" enctype="multipart/form-data">
+                                        <?php
+                                            $id_barang = $data['id_barang'];
+                                            $query1 = mysqli_query($koneksi, "SELECT * FROM data_barang WHERE id_barang='$id_barang'");
+                                            while ($data1 = mysqli_fetch_assoc($query1)) {
+                                            ?>
+                                        <div class="form-group mb-2">
+                                            <input type="number" class="form-control" id="id_barang" name="id_barang" value="<?php echo $data1['id_barang']; ?>">
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <input type="text" class="form-control" id="nama_barang" name="nama_barang" value="<?php echo $data1['nama_barang']; ?>">
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <select id="brand" name="brand" class="form-control">
+                                                <option value="<?php echo $data1['brand']; ?>"><?php echo $data1['brand']; ?></option>
+                                                <option value="Asus">Asus</option>
+                                                <option value="Lenovo">Lenovo</option>
+                                                <option value="Acer">Acer</option>
+                                                <option value="Apple">Apple</option>
+                                                <option value="DEEL">DEEL</option>
+                                                <option value="HP">HP</option>
+                                                <option value="Toshiba">Toshiba</option>
+                                                <option value="MSI">MSI</option>
+                                                <option value="Razer">Razer</option>
+                                                <option value="LG">LG</option>
+                                                <option value="Sony">Sony</option>
+                                                <option value="Samsung">Samsung</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            
+                                            <textarea class="form-control"  name="deskripsi_barang"><?php echo $data1['deskripsi_barang']; ?></textarea>
+                
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <input type="text" class="form-control"  name="harga_barang" value="<?php echo $data1['harga']; ?>">
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <input type="number" class="form-control"  name="stok_barang" value="<?php echo $data1['stok_barang']; ?>">
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <label for="namaFile">Ubah Foto</label><br>
+                                            <input type="file" class="form-control-file" id="namaFile" name="namaFile">
+                                        </div>
+                                        <div class="modal-footer mb-2">
+                                            <button id="nosave" type="button" class="btn btn-danger pull-left" data-dismiss="modal">Batal</button>
+                                            <input type="submit" class="btn btn-primary" value="update">
+                                        </div>
+                                            <?php
+                                            }
+                                            ?>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                   <!-- modal delete -->
+
                     <div class="example-modal">
                     <div id="deleteproduk<?php echo $data['id_barang']; ?>" class="modal fade" role="dialog"
                         style="display:none;">
@@ -104,11 +194,6 @@
                         </div>
                     </div>
                 </div>
-
-                  
-                    
-                    
-                    
                     <?php
               }
               ?>
@@ -123,10 +208,10 @@
                           <div class="modal-body">
                               <form action="simpan_produk.php" method="post" enctype="multipart/form-data">
                                   <div class="form-group mb-2">
-                                      <input type="number" class="form-control" id="id_barang" name="id_barang" placeholder="ID BARANG" value="">
+                                      <input type="number" class="form-control"  name="id_barang" placeholder="ID BARANG" value="">
                                   </div>
                                   <div class="form-group mb-2">
-                                      <input type="text" class="form-control" id="nama_barang" name="nama_barang" placeholder="NAMA BARANG" value="">
+                                      <input type="text" class="form-control" name="nama_barang" placeholder="NAMA BARANG" value="">
                                   </div>
                                   <div class="form-group mb-2">
                                       <select id="brand" name="brand" class="form-control">
@@ -151,18 +236,19 @@
           
                                   </div>
                                   <div class="form-group mb-2">
-                                      <input type="number" class="form-control" id="harga_barang" name="harga_barang" placeholder="HARGA BARANG" value="">
+                                      <input type="text" class="form-control"  name="harga_barang" placeholder="HARGA BARANG" value="">
                                   </div>
                                   <div class="form-group mb-2">
-                                      <input type="number" class="form-control" id="stok_barang" name="stok_barang" placeholder="STOK BARANG" value="">
+                                      <input type="number" class="form-control"  name="stok_barang" placeholder="STOK BARANG" value="">
                                   </div>
                                   <div class="form-group mb-2">
                                       <label for="namaFile">Tambahkan Foto</label><br>
                                       <input type="file" class="form-control-file" id="namaFile" name="namaFile">
                                   </div>
+                                  <input type="hidden" name="username" value="<?php echo $_SESSION['user'];?>">
                                   <div class="modal-footer mb-2">
                                       <button id="nosave" type="button" class="btn btn-danger pull-left" data-dismiss="modal">Batal</button>
-                                      <input type="submit" name="proses" class="btn btn-primary" value="Simpan">
+                                      <input type="submit" name="proses_simpan" class="btn btn-primary" value="Simpan">
                                   </div>
                               </form>
                           </div>
