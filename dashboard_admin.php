@@ -1,3 +1,20 @@
+<?php
+    session_start();
+
+    if (!isset($_SESSION["user"])){
+        header("Location:login_penjual.php");
+        exit;
+    }
+    $user = $_SESSION['user']; 
+
+    if (isset($_GET['logout'])) {
+
+    session_destroy();
+
+    header("Location:index.php");
+    exit;
+}
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -14,20 +31,23 @@
   </head>
   <body>
     
-<div class="row no-gutters mt-0">
+<div class="row  mt-0">
   <div class="col-md-2 mt-2 pr-3 pt-4" style="background-color:#749BC2;">
         <ul class="nav flex-column ml-3 mb-5">
       <li class="nav-item">
        <img src="logo.png" width="180" alt="">
       </li>
       <li class="nav-item">
-        <a class="nav-link active text-white" href=""><i class="fas fa-tachometer-alt mr-2"></i>Dashboard</a><hr class="bg-secondary">
+        <a class="nav-link active text-white" href="dashboard_admin.php"><i class="fas fa-tachometer-alt mr-2"></i>Dashboard</a><hr class="bg-secondary">
       </li>
       <li class="nav-item">
-        <a class="nav-link text-white" href="index_dosen.php"><i class="fas fa-box-open mr-2"></i>Data Produk</a><hr class="bg-secondary">
+        <a class="nav-link text-white" href="data_produk.php"><i class="fas fa-box-open mr-2"></i>Data Produk</a><hr class="bg-secondary">
       </li>
       <li class="nav-item">
-        <a class="nav-link text-white" href="index_pegawai.php"><i class="fas fa-dollar-sign mr-2"></i>Data Transaksi</a><hr class="bg-secondary">
+        <a class="nav-link text-white" href="data_transaksi.php"><i class="fas fa-dollar-sign mr-2"></i>Data Transaksi</a><hr class="bg-secondary">
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="?logout"><i class="fas fa-sign-out-alt mr-2"></i>Keluar</a><hr class="bg-secondary">
       </li>
     </ul>
   </div>
@@ -36,8 +56,8 @@
     <h3>Dashboard Admin</h3><hr> 
         <table class="table table-striped table-bordered">
         <div class="container text-center">
-  <div class="row">
-    <div class="col-md-3 mr-5" style="height:300px; background-color:#D9D9D9;">
+  <div class="row mr-5">
+    <div class="col-md-3 mr-5" style="height:300px; background-color:#D9D9D9; margin: 0 100px; 0 50px; ">
       <i class="fas fa-box-open mr-2 fa-6x mt-5"></i>
       <h3 class="mt-5">Produk</h3>
     </div>
