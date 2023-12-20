@@ -12,27 +12,40 @@
 
     <style>
     #carouselExampleDark {
-        height: 450px;
-        width: 1200px;
-        margin: auto;
-        border-radius: 200px;
+        max-height: 400px;
     }
 
-    .carousel-inner {
-        height: 450px;
-        width: 1200px;
+    #carouselExampleDark .carousel-inner img {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
     }
 
     .jarak-botton {
         margin-top: -10px;
     }
 
-    .two-line-ellipsis {
+    .crop-line {
         display: -webkit-box;
-        -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
+        -webkit-line-clamp: 2;
         text-overflow: ellipsis;
+
+    }
+
+    .card-img-top {
+        object-fit: cover;
+        height: 175px;
+    }
+
+    .card-body .container {
+        margin: 0;
+        padding: 0;
+    }
+
+    .card-body p {
+        margin: 0;
     }
     </style>
 </head>
@@ -41,9 +54,8 @@
 
     <!-- Navigation -->
 
-    <div style="height: 25px; width: 100%; background-color: #4682A9;"></div>
-    <nav class="navbar navbar-expand-lg fixed-top"
-        style="height: 75px; background-color: #91C8E4; margin-bottom: 200px;">
+    <div style="height: 25px; width: 100%; background-color: #4682A9; margin-bottom: 70px;"></div>
+    <nav class="navbar navbar-expand-lg fixed-top" style="height: 75px; background-color: #91C8E4; ">
         <div class="container-fluid">
             <img src="logo/logo.png" style="height: 50px; width: 100px;">
             <ul class="navbar-nav">
@@ -89,118 +101,121 @@
 
     <!-- brand select -->
 
-    <div class="container col-1 mt-5" style="background-color: #FAF6F6; float: left; margin-top : 25px;">
-        <h6 class="mt-2"><b>Katalog</b></h6>
-        <?php
-       include "koneksi.php";
-
-       $query = mysqli_query($koneksi, "SELECT * FROM data_barang");
-
-       $brand = array();
-       while ($data = mysqli_fetch_assoc($query)){
-            ?>
-        <table>
-            <tr>
-                <?php
-            if (!in_array($data['brand'], $brand)) {
-                ?>
-                <td><input type="checkbox" name="brand"></td>
-                <td><?php echo $data['brand'];?></td>
-                <?php
-                 array_push($brand, $data['brand']);
-                 ?>
-                <?php
-            }else {
-            ?>
-                <?php
-            }
-            ?>
-            </tr>
-        </table>
-        <?php
-    }
-        ?>
-    </div>
     <!-- colorsel -->
 
-    <div id="carouselExampleDark" class="carousel carousel-dark slide mt-5" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
-                aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
-                aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2"
-                aria-label="Slide 3"></button>
-        </div>
-        <div class="carousel-inner">
-            <div class="carousel-item active" data-bs-interval="10000">
-                <img src="logo/gambar-iklan/1.jpg" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>First slide label</h5>
-                    <p>Some representative placeholder content for the first slide.</p>
-                </div>
-            </div>
-            <div class="carousel-item" data-bs-interval="2000">
-                <img src="logo/gambar-iklan/2.jpg" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Second slide label</h5>
-                    <p>Some representative placeholder content for the second slide.</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="logo/gambar-iklan/1.jpg" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Third slide label</h5>
-                    <p>Some representative placeholder content for the third slide.</p>
-                </div>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
 
-        <!-- list barang -->
-        <?php
-        include "koneksi.php";
-        
-        $query = mysqli_query($koneksi, "SELECT * FROM data_barang");
-        ?>
-
-        <div class="container mt-4 ">
-            <div class="row">
-                <?php while($data = mysqli_fetch_assoc($query)) { ?>
-                <div class="col-md-2 ml-3 fixed-width-column ">
-                    <div class="card mb-1">
-                        <img src="file/<?php echo $data['foto_barang'] ?>" class="card-img-top" alt="..."
-                            style="width: 175px; height: 175px;">
-                        <div class="card-body bg-light">
-                            <h5 class="card-title"><?php echo $data['brand'];?></h5>
-                            <p class="card-text jarak-botton two-line-ellipsis"><a
-                                    href="detail_barang.php?id_barang=<?php echo $data['id_barang'];?>"><?php echo $data['nama_barang'];?></a>
-                            </p>
-                            <div class=" countainer m-0 p-0">
-                                <p class="card-text mt-0 jarak-botton">Rp.<?php echo $data['harga']; ?></p>
-                                <p class="card-text jarak-botton">Tersedia <?php echo $data['stok_barang']; ?></p>
-                                <i class="fas fa-star text-warning jarak-botton"></i>
-                                <i class="fas fa-star text-warning jarak-botton"></i>
-                                <i class="fas fa-star text-warning jarak-botton"></i>
-                                <i class="fas fa-star-half-alt text-warning jarak-botton"></i>
-                                <i class="far fa-star text-warning jarak-botton"></i><br>
-                                <p class="far jarak-botton">5.0</p>
-                            </div>
-                        </div>
+    <div class="row">
+        <div class="col-md-1 " style="background-color: #FAF6F6 ;box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2); position:fixed; padding-bottom:80vh;">
+            <h6 class="mt-2 ms-3 mb-2"><b>Kategori</b></h6>
+            <?php
+           include "koneksi.php";
+    
+           $query = mysqli_query($koneksi, "SELECT * FROM data_barang");
+    
+           $brand = array();
+           while ($data = mysqli_fetch_assoc($query)){
+                ?>
+            <table class=" ms-3">
+                <tr>
+                    <?php
+                if (!in_array($data['brand'], $brand)) {
+                    ?>
+                    <td><input type="checkbox" name="brand"></td>
+                    <td><?php echo $data['brand'];?></td>
+                    <?php
+                     array_push($brand, $data['brand']);
+                     ?>
+                    <?php
+                }else {
+                ?>
+                    <?php
+                }
+                ?>
+                </tr>
+            </table>
+            <?php
+        }
+            ?>
+        </div>
+        <div class="col-md-10 " style="background-color:#FAF4F4; padding: 20px; margin-left:12vw;box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);">
+            <div id="carouselExampleDark" class="carousel carousel-dark slide " data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
+                        aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active" data-bs-interval="5000">
+                        <img src="logo/gambar-iklan/gambar2.jpg" class="d-block w-100" alt="...">
+                        <div class="carousel-caption d-none d-md-block"></div>
+                    </div>
+                    <div class="carousel-item" data-bs-interval="5000">
+                        <img src="logo/gambar-iklan/gambar1.jpg" class="d-block w-100" alt="...">
+                        <div class="carousel-caption d-none d-md-block"></div>
+                    </div>
+                    <div class="carousel-item" data-bs-interval="5000">
+                        <img src="logo/gambar-iklan/gambar3.jpg" class="d-block w-100" alt="...">
+                        <div class="carousel-caption d-none d-md-block"></div>
                     </div>
                 </div>
-                <?php } ?>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+                <?php
+                include "koneksi.php";
+                
+                $query = mysqli_query($koneksi, "SELECT * FROM data_barang");
+                ?>
+                <div class="container-fluid mt-4">
+                    <div class="row">
+                        <?php while($data = mysqli_fetch_assoc($query)) { ?>
+                        <div class="col-md-2 ml-3 fixed-width-column">
+                            <div class="card mb-1">
+                                <img src="file/<?php echo $data['foto_barang'] ?>" class="card-img-top"
+                                    alt="Product Image">
+                                <div class="card-body bg-light">
+                                    <h6 class="card-title"><?php echo $data['brand'];?></h5>
+                                        <p class="card-text crop-line text-primary"><a
+                                                href="detail_barang.php?id_barang=<?php echo $data['id_barang'];?>"><?php echo $data['nama_barang'];?></a>
+                                        </p>
+                                        <p class="card-text mt-1 text-warning">Rp.<?php echo $data['harga']; ?></p>
+                                        <p class="card-text">Tersedia <?php echo $data['stok_barang']; ?></p>
+                                        <div class="countainer-fluid col mt-1">
+                                            <p class="fas me-1 ">5.0</p>
+                                            <i class="fas fa-star text-warning "></i>
+                                            <i class="fas fa-star text-warning "></i>
+                                            <i class="fas fa-star text-warning "></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning "></i>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php } ?>
+                    </div>
             </div>
         </div>
+
     </div>
-    </div>
+
+
+    <!-- list barang -->
+
+
+
+
+
 
 
 
