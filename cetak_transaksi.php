@@ -5,7 +5,7 @@ type = window.print()
 <div>
     <center>
     <h1>Data Transaksi</h1>
-    <h2>LapStore</h2>
+    <h2>Lap Store</h2>
     </center>
 </div>
 
